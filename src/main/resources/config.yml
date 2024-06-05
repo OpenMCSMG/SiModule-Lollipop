@@ -1,0 +1,10 @@
+MiddleDot: "world,0,0,0,0,0"
+MaxRadius: 50 # 最大半径 达到后开始计数如果
+MinRadius: 10 # 初始大小
+MainMaterial: DIAMOND_BLOCK
+ColorMaterial:
+  - "IRON_ORE"
+  - "COAL_ORE"
+  - "REDSTONE_ORE"
+KeepTime: 15
+

@@ -1,12 +1,12 @@
-val funcName = "putfunname"
+val funcName = "lollipop"
 val group = "cn.cyanbukkit.${funcName}"
-val version = "0.1"
+version = "0.1"
 val mainPlugin = "SiModuleGame"
 
 bukkit {
     name = rootProject.name
-    description = "put fun name here"
-    authors = listOf("Your Name")
+    description = "吃过棒棒糖么？"
+    authors = listOf("CyanBukkit")
     website = "https://cyanbukkit.cn"
     main = "${group}.cyanlib.launcher.CyanPluginLauncher"
     loadBefore = listOf(mainPlugin)
@@ -24,19 +24,19 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.spigotmc:spigot-api:1.8.8-R0.1-SNAPSHOT")
-    compileOnly("com.comphenix.protocol:ProtocolLib:4.8.0")
+    compileOnly("org.apache.commons:commons-lang3:3.12.0")
+    compileOnly("org.spigotmc:spigot-api:1.20.6-R0.1-SNAPSHOT")
     compileOnly(fileTree("libs") { include("*.jar") })
 
 }
 
 kotlin {
-    jvmToolchain(8)
+    jvmToolchain(21)
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 tasks {
