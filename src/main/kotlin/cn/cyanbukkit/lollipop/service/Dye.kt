@@ -33,13 +33,13 @@ object Dye {
         }
         object : BukkitRunnable() {
             override fun run() {
-                if (temp <= 0) {
-                    now_size = old
-                    cancel()
-                }
-                temp--
                 getOnlinePlayers().forEach {
                     it.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent("§c还剩${temp}秒"))
+                }
+                temp--
+                if (temp < 1) {
+                    now_size = old
+                    cancel()
                 }
             }
         }.runTaskTimer(cyanPlugin, 0,  20L)

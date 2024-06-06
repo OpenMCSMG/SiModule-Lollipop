@@ -12,12 +12,20 @@ import cn.cyanbukkit.lollipop.utils.Scoreboard
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
+import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scoreboard.Criteria
 
 
 object PlayerListener : Listener {
+
+
+    @EventHandler
+    fun onPlayerMove(event: PlayerDeathEvent) {
+        event.entity.spigot().respawn()
+        event.entity.teleport(Lollipop.middleBlock.location.add(0.5, 1.0, 0.5))
+    }
 
     @EventHandler
     fun onPlayerJoin(event: org.bukkit.event.player.PlayerJoinEvent) {
