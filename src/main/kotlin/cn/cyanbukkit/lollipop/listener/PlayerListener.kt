@@ -20,6 +20,7 @@ import org.bukkit.scoreboard.Criteria
 
 object PlayerListener : Listener {
 
+    var canBuild = false
 
     @EventHandler
     fun onPlayerMove(event: PlayerDeathEvent) {
@@ -45,6 +46,22 @@ object PlayerListener : Listener {
         player.teleport(Lollipop.middleBlock.location.add(0.5, 1.0, 0.5))
     }
 
+
+    @EventHandler
+    fun onBreak(event: org.bukkit.event.block.BlockBreakEvent) {
+        if (!canBuild) {
+            event.isCancelled = true
+            return
+        }
+    }
+
+    @EventHandler
+    fun onPlace(event: org.bukkit.event.block.BlockPlaceEvent) {
+        if (!canBuild) {
+            event.isCancelled = true
+            return
+        }
+    }
 
     lateinit var obj: org.bukkit.scoreboard.Objective
 

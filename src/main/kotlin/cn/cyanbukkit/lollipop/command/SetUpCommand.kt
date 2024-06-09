@@ -1,6 +1,7 @@
 package cn.cyanbukkit.lollipop.command
 
 import cn.cyanbukkit.lollipop.cyanlib.launcher.CyanPluginLauncher.cyanPlugin
+import cn.cyanbukkit.lollipop.listener.PlayerListener.canBuild
 import org.bukkit.command.Command
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -37,6 +38,16 @@ object SetUpCommand : Command("su") {
                 cyanPlugin.config.set("MiddleDot", "${upOnFooter.world.name},${upOnFooter.x},${upOnFooter.y},${upOnFooter.z}")
                 cyanPlugin.saveConfig()
                 c.sendMessage("§a设置成功")
+            }
+            "build" -> {
+                // canBuild
+                if (canBuild) {
+                    canBuild = false
+                    c.sendMessage("§a关闭建造")
+                } else {
+                    canBuild = true
+                    c.sendMessage("§a开启建造")
+                }
             }
             "setMinRadius" -> {
                 if (args.size < 2) {
