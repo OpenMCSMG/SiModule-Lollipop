@@ -1,8 +1,9 @@
 package cn.cyanbukkit.lollipop
 
-import cn.cyanbukkit.lollipop.service.Dye.buffChange
+import cn.cyanbukkit.lollipop.service.Dye
 import cn.cyanbukkit.lollipop.service.ExpandShrink
 import cn.cyanbukkit.lollipop.service.TNTBoomHandle
+import cn.cyanbukkit.lollipop.service.popAmount
 import cn.cyanbukkit.lollipop.utils.Mode
 
 class GameHandle {
@@ -24,7 +25,17 @@ class GameHandle {
 
     @Mode("dye")
     fun dye(i: Int, j: Int) {
-        buffChange(i, j)
+        Dye.linkedList.add(Dye.Data(i, j * 20))
+    }
+
+    @Mode("template")
+    fun template(i: Int) {
+        popAmount += i
+    }
+
+    @Mode("randomtp")
+    fun randomTp() {
+        ExpandShrink.randomTp()
     }
 
 

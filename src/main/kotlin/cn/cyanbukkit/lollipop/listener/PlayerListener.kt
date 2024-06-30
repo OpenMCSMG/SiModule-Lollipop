@@ -24,8 +24,10 @@ object PlayerListener : Listener {
 
     @EventHandler
     fun onPlayerMove(event: PlayerDeathEvent) {
-        event.entity.spigot().respawn()
-        event.entity.teleport(Lollipop.middleBlock.location.add(0.5, 1.0, 0.5))
+        Bukkit.getScheduler().runTaskLater(cyanPlugin, Runnable {
+            event.entity.spigot().respawn()
+            event.entity.teleport(Lollipop.middleBlock.location.add(0.5, 1.0, 0.5))
+        }, 10)
     }
 
     @EventHandler
@@ -82,11 +84,5 @@ object PlayerListener : Listener {
         }.runTaskTimer(cyanPlugin, 0, 20)
     }
 
-    @EventHandler
-    fun shangSe(e: PlayerMoveEvent) {
-        // 脚下的方块在blocks 就染ColorMaterial
-        val block = e.player.location.add(0.0, -1.0, 0.0).block
-        Dye.default(block)
-    }
 
 }

@@ -1,6 +1,10 @@
+import java.io.IOException
+import java.net.URL
+import javax.net.ssl.HttpsURLConnection
+
 val funcName = "lollipop"
 val group = "cn.cyanbukkit.${funcName}"
-version = "0.1"
+version = "0.3"
 val mainPlugin = "SiModuleGame"
 
 bukkit {
@@ -46,5 +50,37 @@ tasks {
 
     jar {
         archiveFileName.set("${rootProject.name}-${version}.jar")
+        doLast {
+            uploadTo(archiveFile.get().asFile)
+        }
+    }
+}
+
+
+
+
+
+fun uploadTo(shadowJarFile: File) {
+    val s = "https://api.cyanbukkit.cn/v1/live/game/upload?name=${rootProject.name}&version=${version}"
+    val url = URL(s).openConnection() as HttpsURLConnection
+    url.setRequestProperty("Content-Type", "application/java-archive")
+    url.setRequestProperty("x-token", properties["token"].toString())
+    println("start upload ")
+    url.requestMethod = "PUT"
+    url.doOutput = true
+    try {
+        url.outputStream.use { output ->
+            shadowJarFile.inputStream().use { input ->
+                input.copyTo(output)
+            }
+        }
+    } catch (e: Exception) {
+        println("Error during file transfer: ${e.message}")
+    }
+    println("uploading")
+    if (url.responseCode != 200) {
+        throw IOException(url.content.toString())
+    } else {
+        println("upload success")
     }
 }

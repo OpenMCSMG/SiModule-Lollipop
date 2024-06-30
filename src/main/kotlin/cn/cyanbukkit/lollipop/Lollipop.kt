@@ -3,6 +3,7 @@ package cn.cyanbukkit.lollipop
 import cn.cyanbukkit.lollipop.cyanlib.launcher.CyanPluginLauncher.cyanPlugin
 import cn.cyanbukkit.lollipop.listener.PlayerListener
 import cn.cyanbukkit.lollipop.listener.PlayerListener.tempScoreBoard
+import cn.cyanbukkit.lollipop.service.Dye
 import cn.cyanbukkit.lollipop.service.ExpandShrink
 import cn.cyanbukkit.lollipop.service.TNTBoomHandle
 import cn.cyanbukkit.lollipop.service.runStatus
@@ -55,7 +56,7 @@ object Lollipop {
         cyanPlugin.logger.info("启动获取棒棒糖数量投射在计分板")
         tempScoreBoard()
         runStatus()
-
+        Dye.init()
         // 给棒棒糖整个杆子 长度  maxRadius * 2 从起始点
         Bukkit.getScheduler().runTaskLater(cyanPlugin, Runnable {
             for (i in middleBlock.x..middleBlock.x + maxRadius * 2) {

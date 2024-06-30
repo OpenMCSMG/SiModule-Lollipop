@@ -14,6 +14,8 @@ object Dye {
 
     var now_size = 1
 
+    val linkedList = mutableListOf<Data>()
+
     fun default(b: Block) {
         // 检查方块是否是Lollipop.MainMaterial类型
         if (b.type == Lollipop.MainMaterial) {
@@ -24,26 +26,35 @@ object Dye {
         }
     }
 
-    fun buffChange(addSize: Int, keepSecond: Int) {
-        var temp = keepSecond
-        val old = now_size
-        now_size += addSize
-        getOnlinePlayers().forEach {
-            it.sendTitle("§a增加了染色范围", "§7持续时间: $keepSecond 秒", 0, 20, 0)
-        }
+    fun init() {
         object : BukkitRunnable() {
             override fun run() {
-                getOnlinePlayers().forEach {
-                    it.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent("§c还剩${temp}秒"))
-                }
-                temp--
-                if (temp < 1) {
-                    now_size = old
-                    cancel()
+                // 一直检查是否有新的数据然后执行
+                if (linkedList.isEmpty()) {
+                    getOnlinePlayers().forEach {
+                        default(it.location.add(0.0, -1.0, 0.0).block)
+                    }
+                } else {
+                    // 获取第一个数据
+                    val data = linkedList[0]
+                    data.keepTime--
+                    if (data.keepTime < 1) {
+                        linkedList.removeAt(0)
+                        now_size = 1
+                    } else {
+                        getOnlinePlayers().forEach {
+                            it.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent("§c还剩${data.keepTime / 20}秒"))
+                        }
+                        now_size = data.size
+                        getOnlinePlayers().forEach {
+                            default(it.location.add(0.0, -1.0, 0.0).block)
+                        }
+                    }
                 }
             }
-        }.runTaskTimer(cyanPlugin, 0,  20L)
+        }.runTaskTimer(cyanPlugin, 0, 1L)
     }
+
 
     private fun dyeSurroundingBlocks(block: Block, size: Int) {
         val world = block.world
@@ -68,6 +79,13 @@ object Dye {
             }
         }
     }
+
+
+    data class Data(
+        val size: Int,
+        var keepTime: Int
+    )
+
 }
 
 

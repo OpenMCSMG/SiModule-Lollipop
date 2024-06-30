@@ -91,5 +91,17 @@ object ExpandShrink {
         }
     }
 
+    fun randomTp() {
+        getOnlinePlayers().forEach {
+            for (i in 0..100) {
+                val pitch = (Math.random() * 360).toFloat()
+                val yaw = (Math.random() * 360).toFloat()
+                val loc = it.location
+                it.teleport(Location(loc.world, loc.x, loc.y, loc.z, yaw, pitch))
+            }
+            it.sendTitle("§a嘿嘿嘿嘿", "", 10, 40, 10)
+        }
+    }
+
 
 }
