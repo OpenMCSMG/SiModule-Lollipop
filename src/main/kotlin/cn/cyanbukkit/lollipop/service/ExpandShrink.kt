@@ -21,34 +21,33 @@ object ExpandShrink {
      * 单单缩小
      */
     fun shrinkCircle(radius: Double) {
-        val need = nowRadius - radius
+        var need = nowRadius - radius
         if (need < cyanPlugin.config.getDouble("MinRadius")) {
             getOnlinePlayers().forEach {
                 it.sendTitle("§c缩小失败", "§c已经是最小半径了", 10, 40, 10)
             }
-            return
+            need = cyanPlugin.config.getDouble("MinRadius")
         }
         serCircle(nowRadius.toDouble(), Material.AIR, false)
-        serCircle(need,  Lollipop.MainMaterial, true)
+        serCircle(need, Lollipop.MainMaterial, true)
         getOnlinePlayers().forEach {
             it.sendTitle("§a缩小成功", "§a半径减少到 $need 请重新给棒棒糖上色", 10, 40, 10)
         }
     }
-    //TODO ： 解决棒棒糖杆不会跟着缩小的问题
+
 
     /**
      * 扩大
      */
     fun expendCircle(add: Double) {
-        val need = add + nowRadius
+        var need = add + nowRadius
         if (need > maxRadius) {
             getOnlinePlayers().forEach {
                 it.sendTitle("§c扩大失败", "§c已经是最大半径了", 10, 40, 10)
             }
-            return
+            need = maxRadius.toDouble()
         }
         serCircle(need, Lollipop.MainMaterial, true)
-
         getOnlinePlayers().forEach {
             it.sendTitle("§a扩大成功", "§a半径增加 $add 请重新给棒棒糖上色", 10, 40, 10)
         }

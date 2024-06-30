@@ -1,19 +1,13 @@
 package cn.cyanbukkit.lollipop.listener
 
 import cn.cyanbukkit.lollipop.Lollipop
-import cn.cyanbukkit.lollipop.Lollipop.colorMaterial
 import cn.cyanbukkit.lollipop.cyanlib.launcher.CyanPluginLauncher.cyanPlugin
-import cn.cyanbukkit.lollipop.service.Dye
 import cn.cyanbukkit.lollipop.service.ExpandShrink
-import cn.cyanbukkit.lollipop.service.ExpandShrink.blocks
-import cn.cyanbukkit.lollipop.service.JinDu
 import cn.cyanbukkit.lollipop.service.popAmount
-import cn.cyanbukkit.lollipop.utils.Scoreboard
 import org.bukkit.Bukkit
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.PlayerDeathEvent
-import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scoreboard.Criteria
 
