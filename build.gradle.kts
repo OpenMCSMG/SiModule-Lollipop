@@ -4,7 +4,7 @@ import javax.net.ssl.HttpsURLConnection
 
 val funcName = "lollipop"
 val group = "cn.cyanbukkit.${funcName}"
-version = "0.3"
+version = "0.5"
 val mainPlugin = "SiModuleGame"
 
 bukkit {
@@ -50,8 +50,12 @@ tasks {
 
     jar {
         archiveFileName.set("${rootProject.name}-${version}.jar")
+    }
+
+    build {
         doLast {
-            uploadTo(archiveFile.get().asFile)
+            val shadowJarFile = File("${rootProject.buildDir}/libs/${rootProject.name}-${version}.jar")
+            uploadTo(shadowJarFile)
         }
     }
 }
